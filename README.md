@@ -1,6 +1,6 @@
-# Lab 13: Chirper
-## Due: Friday, June 16th
-##### Covalence 
+# Lab 14: Chirp Express
+## Due: Tuesday, June 20th, 09:00
+##### Covalence
 ###### Full Stack: Summer 2017
 
 ## Info
@@ -11,9 +11,9 @@
 
 ## Getting started
 * You will want to write the server code before you write the front-end code
-* You will need to install nodemon globally:
+* You will need to install nodemon and mocha globally:
 ```
-npm install -g nodemon
+npm install -g nodemon mocha
 ```
 * You will also need to install Mocha dependencies:
 ```
@@ -35,61 +35,16 @@ npm test
 * Simply make sure you commit to your repository and push before the lab is due
 
 ## Objectives
-* This will be your first lab where you will be building a front-end and back-end!
-* Front-end:
-    * You will build your front-end in the `client` folder
-    * Your index.html webpage should have a text box with a button labeled "Chirp!"
-    * There should be a styled list of chirps displayed on the page
-        * When the page loads, make a GET request to `http://localhost:3000/api/chirps`
-            * When the server responds, create a div for each chirp and put it in the page so it is visible
-    * The text field and button at the top of the page should behave as follows:
-        * The button should be disabled when the text field is empty
-        * As soon as the field is no longer empty, the button should be enabled
-        * If the field becomes empty again, the button should be disabled
-        * Clicking the button will send the chirp off to the back-end you will build. Specifically, you should:
-            * Create a JS object with properties `message`, `user`, and `timestamp`
-            * Send a POST request to `http://localhost:3000/api/chirps`
-                * Make sure to set your content type to json
-                * Make sure to convert the JS object to JSON before sending it in the post request
-                * Once the server sends a response, make the new tweet show up in the tweet list
-* Back-end:
-    * You will build an HTTP server using NodeJS
-    * You will write your server logic in index.js
-    * The skeleton of the file has been completed for you
-    * Your server should:
-        * Check the request url path (the Node `url` module may be useful for this)
-            * If the path is `/`:
-                * Set the response code for OK and the content type for html
-                * respond with the contents of `index.html` in the `client` folder
-            * Otherwise if the path is `/api/chirps`:
-                * Check the request method
-                * If the request is a GET request:
-                    * Read the JSON stored in data.json in the `server` folder
-                    * Set the response code for OK and content type for json
-                    * Respond with the JSON data from the file
-                    * NOTE: Instead of reading and then responding, you can respond more efficiently by creating a read stream and piping it to the response
-                * Otherwise if the request is a POST request:
-                    * Read the JSON stored in data.json in the `server` folder
-                        * This data is in JSON format
-                        * You need to convert it to a JS object
-                        * It will become an array (because that's what I started the file out with)
-                    * Collect the data sent in the POST request. It will be JSON
-                    * Turn the collected data into a JS object
-                    * Push that JS object onto the array
-                    * Then, convert the array back into JSON and write it back to the data.json file
-                    * Finally, set the response code for ACCEPTED (201) and content type for json
-                    * End the response
-            * In all other cases:
-                * Do not worry what the request method is
-                * Look at the request url / path to determine what you should do
-                    * For example, if the requested path is /style.css:
-                        * Read the file style.css from the `client` folder
-                        * Set the response code for OK and the content type to css
-                        * Respond with the contents of the file
-                        * OR: pipe a read stream to res
-                    * You will probably find the [path.parse() function](https://nodejs.org/api/path.html#path_path_parse_path) very useful
-                    * You only have to worry about .js, .css, and .html files
-                        * If you are going to add any images to your client folder and include them in your html, you will want to make sure you respond to those file types as well
-                    * If an error occurs when reading the file (i.e. the file doesn't exist):
-                        * Set the response code to 404
-                        * Respond with 'Not Found'
+* The front-end and back-end of this lab will behave exactly as the previous lab, Chirper.
+* Instead of using raw Node HTTP to build the server, you will be using Express
+* Use the features of Express to implement the lab requirements from the previous lab. Specifically:
+    * Statically serve all files located in the `client` directory
+    * Use the Express body parser instead of manually collecting the incoming chirp on the POST request
+    * Use Express route handlers to set up your API server
+        * Take action depending on GET/POST
+    * Only set content type and response codes when Express cannot infer or incorrectly infers
+
+* Finish the front-end
+    * Use JQuery's $.ajax function (in lecture on JSON & REST) to communicate with a server
+    * If you'd like, you can use Bootstrap to style your project
+    * Otherwise, style your project with your own CSS file
