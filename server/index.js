@@ -20,15 +20,16 @@ app.route('/api/chirps')
         fs.readFile(dataPath,'utf8', function(err, data){
             if(err){
                 console.log(err);
+                res.sendStatus(500);
             }else{
                 var inputData = JSON.parse(data);
                 inputData.push(req.body);
-                json = JSON.stringify(inputData);
-                fs.writeFile(dataPath, json, 'utf8',function(err, data){
+                fs.writeFile(dataPath, JSON.stringify(inputData), 'utf8',function(err, data){
                     if(err){
                         console.log(err);
+                        res.sendStatus(500);
                     }else{
-                        res.status(201).end(data);      
+                        res.sendStatus(201);
                     }
                 });
             }
